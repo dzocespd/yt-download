@@ -1,13 +1,24 @@
 {
   "name": "yt-dl",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Youtube videos download to mp3",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dzocespd/yt-download.git"
+  },
+  "author": "derimalec",
+  "keywords": [
+    "youtube",
+    "youtube to mp3",
+    "youtube download",
+    "youtube download to mp3"
+  ],
   "license": "ISC",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
@@ -20,5 +31,8 @@
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
-  }
+  },
+  "files": [
+    "lib/**/*"
+  ]
 }
