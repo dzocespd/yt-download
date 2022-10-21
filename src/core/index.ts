@@ -5,15 +5,17 @@ import ffmpegInstaller from "@ffmpeg-installer/ffmpeg";
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
+export type Quality = "lowest" | "highest" | "highestaudio" | "lowestaudio";
+
 export interface IDownloader {
-  download: (url: string, path: string, quality: string) => void;
+  download: (url: string, path: string, quality: Quality) => void;
 }
 
 export abstract class Downloader implements IDownloader {
   download = async (
     url: string,
     path: string,
-    quality: string = "highestaudio"
+    quality: Quality = "highestaudio"
   ) => {
     const title = await this.getTitle(url);
 
