@@ -8,14 +8,18 @@ ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 export type Quality = "lowest" | "highest" | "highestaudio" | "lowestaudio";
 
 export interface IDownloader {
-  download: (url: string, path: string, quality: Quality) => void;
+  download: (
+    url: string,
+    path: string,
+    quality?: Quality | undefined
+  ) => Promise<string>;
 }
 
 export abstract class Downloader implements IDownloader {
   download = async (
     url: string,
     path: string,
-    quality: Quality = "highestaudio"
+    quality: Quality | undefined = "highestaudio"
   ) => {
     const title = await this.getTitle(url);
 
@@ -25,9 +29,11 @@ export abstract class Downloader implements IDownloader {
 
     let start = Date.now();
 
+    const pathOfSavedFile = path + `${title}.mp3`;
+
     ffmpeg(stream)
       .audioBitrate(128)
-      .save(path + `${title}.mp3`)
+      .save(pathOfSavedFile)
 
       .on("progress", (p) => {
         readline.cursorTo(process.stdout, 0);
@@ -36,6 +42,8 @@ export abstract class Downloader implements IDownloader {
       .on("end", () => {
         console.log(`\ndone, thanks - ${(Date.now() - start) / 1000}s`);
       });
+
+    return pathOfSavedFile;
   };
 
   private getTitle = async (url: string) => {
