@@ -1,6 +1,5 @@
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
-import readline from "readline";
 import ffmpegInstaller from "@ffmpeg-installer/ffmpeg";
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
@@ -12,7 +11,7 @@ export interface IDownloader {
     url: string,
     path: string,
     quality?: Quality | undefined
-  ) => Promise<string>;
+  ) => Promise<ffmpeg.FfmpegCommand>;
 }
 
 export abstract class Downloader implements IDownloader {
@@ -27,23 +26,9 @@ export abstract class Downloader implements IDownloader {
       quality: quality,
     });
 
-    let start = Date.now();
-
     const pathOfSavedFile = path + `${title}.mp3`;
 
-    ffmpeg(stream)
-      .audioBitrate(128)
-      .save(pathOfSavedFile)
-
-      .on("progress", (p) => {
-        readline.cursorTo(process.stdout, 0);
-        process.stdout.write(`${p.targetSize}kb downloaded`);
-      })
-      .on("end", () => {
-        console.log(`\ndone, thanks - ${(Date.now() - start) / 1000}s`);
-      });
-
-    return pathOfSavedFile;
+    return ffmpeg(stream).audioBitrate(128).save(pathOfSavedFile);
   };
 
   private getTitle = async (url: string) => {
