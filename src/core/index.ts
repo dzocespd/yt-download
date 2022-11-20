@@ -11,7 +11,7 @@ export interface IDownloader {
     url: string,
     path: string,
     quality?: Quality | undefined
-  ) => Promise<ffmpeg.FfmpegCommand>;
+  ) => Promise<{ ffmpegStream: ffmpeg.FfmpegCommand; path: string }>;
 }
 
 export abstract class Downloader implements IDownloader {
@@ -28,7 +28,10 @@ export abstract class Downloader implements IDownloader {
 
     const pathOfSavedFile = path + `${title}.mp3`;
 
-    return ffmpeg(stream).audioBitrate(128).save(pathOfSavedFile);
+    return {
+      ffmpegStream: ffmpeg(stream).audioBitrate(128).save(pathOfSavedFile),
+      path: pathOfSavedFile,
+    };
   };
 
   private getTitle = async (url: string) => {
