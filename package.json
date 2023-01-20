@@ -1,6 +1,6 @@
 {
   "name": "@derimalec/ytdl-to-mp3",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Youtube videos download to mp3",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
