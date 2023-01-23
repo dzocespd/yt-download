@@ -6,7 +6,21 @@
 
 1. Install the package npm i @derimalec/ytdl-to-mp3
 2. Import it as: import { ytDownloader } from "@derimalec/ytdl-to-mp3";
-3. Use it as: const pathOfDownload = await ytDownloader.download('some youtube url', 'somepath');
+3. Use it as: const {path} = await ytDownloader.download('some youtube url', 'somepath');
 
 Example:
-![How to steps](/assets/how-to.png)
+
+```typescript
+import { ytDownloader } from "@derimalec/ytdl-to-mp3";
+
+const downloadSong = async () => {
+  // download returns the full path, with the song name + mp3 extension on it.
+  const { path } = await ytDownloader.download(
+    "https://www.youtube.com/dummy_youtube_link",
+    "your path goes here",
+    "highestaudio"
+  );
+};
+
+downloadSong();
+```

@@ -11,7 +11,7 @@ export interface IDownloader {
     url: string,
     path: string,
     quality?: Quality | undefined
-  ) => Promise<string>;
+  ) => Promise<{ path: string }>;
 }
 
 export abstract class Downloader implements IDownloader {
@@ -19,18 +19,26 @@ export abstract class Downloader implements IDownloader {
     url: string,
     path: string,
     quality: Quality | undefined = "highestaudio"
-  ) => {
+  ): Promise<{ path: string }> => {
     const title = await this.getTitle(url);
 
     let stream = ytdl(url, {
       quality: quality,
     });
-
     const pathOfSavedFile = path + `${title}.mp3`;
 
-    ffmpeg(stream).audioBitrate(128).save(pathOfSavedFile);
-
-    return pathOfSavedFile;
+    return new Promise((resolve, reject) => {
+      ffmpeg(stream)
+        .output(`${title}.mp3`)
+        .audioBitrate(128)
+        .on("end", () => {
+          resolve({ path: pathOfSavedFile });
+        })
+        .on("error", () => {
+          reject({ message: "Something went wrong" });
+        })
+        .run();
+    });
   };
 
   private getTitle = async (url: string) => {
