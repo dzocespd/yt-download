@@ -29,7 +29,7 @@ export abstract class Downloader implements IDownloader {
 
     return new Promise((resolve, reject) => {
       ffmpeg(stream)
-        .output(`${title}.mp3`)
+        .output(pathOfSavedFile)
         .audioBitrate(128)
         .on("end", () => {
           resolve({ path: pathOfSavedFile });
