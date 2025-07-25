@@ -8,9 +8,6 @@
 - **🎵 Multiple Audio Formats**: Support for 5 audio formats: MP3, WAV, AAC, FLAC, OGG
 - **🎯 Enhanced Quality Control**: Smart quality validation and better selection options
 - **📁 Auto Directory Creation**: Automatically creates output directories if they don't exist
-- **🧹 Filename Sanitization**: Automatic cleanup of video titles for safe filenames
-- **🔄 Backward Compatibility**: Existing v1.x code continues to work
-- **📊 Real-time Progress**: Live download progress with frame counts and time markers
 
 ### 📦 Installation
 
