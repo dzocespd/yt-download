@@ -1,7 +1,7 @@
 {
   "name": "@derimalec/ytdl-to-mp3",
-  "version": "1.2.4",
-  "description": "Youtube videos download to mp3",
+  "version": "2.0.0",
+  "description": "Youtube videos downloader - supports both video downloads and audio conversion (MP3, WAV, AAC)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -17,14 +17,18 @@
     "youtube",
     "youtube to mp3",
     "youtube download",
-    "youtube download to mp3"
+    "youtube download to mp3",
+    "youtube video download",
+    "youtube downloader",
+    "mp4 download",
+    "video converter"
   ],
   "license": "ISC",
   "dependencies": {
+    "@distube/ytdl-core": "^4.16.12",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@types/node": "^18.11.2",
-    "fluent-ffmpeg": "^2.1.2",
-    "ytdl-core": "^4.11.2"
+    "fluent-ffmpeg": "^2.1.2"
   },
   "devDependencies": {
     "@types/fluent-ffmpeg": "^2.1.20",
