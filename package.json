@@ -1,6 +1,6 @@
 {
   "name": "@derimalec/ytdl-to-mp3",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Youtube videos downloader - supports both video downloads and audio conversion (MP3, WAV, AAC)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
