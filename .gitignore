@@ -2,4 +2,4 @@
 /lib
 .npmignore
 *-player-script.js
-src/downloads/
+**/downloads/

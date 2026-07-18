@@ -3,7 +3,9 @@ import fs from "fs";
 import path from "path";
 import ffmpeg from "fluent-ffmpeg";
 import ffmpegInstaller from "@ffmpeg-installer/ffmpeg";
-import type { Innertube, Types } from "youtubei.js";
+import type { Innertube, Types } from "youtubei.js" with {
+  "resolution-mode": "import",
+};
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
@@ -40,7 +42,9 @@ export interface IDownloader {
   ) => Promise<{ path: string }>;
 }
 
-type YoutubeiModule = typeof import("youtubei.js");
+type YoutubeiModule = typeof import("youtubei.js", {
+  with: { "resolution-mode": "import" },
+});
 
 let youtubeiPromise: Promise<YoutubeiModule> | null = null;
 let innertubePromise: Promise<Innertube> | null = null;

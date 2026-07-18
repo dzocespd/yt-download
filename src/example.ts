@@ -6,7 +6,7 @@ const downloader = new YouTubeDownloader();
 
 async function examples() {
   const youtubeUrl =
-    "https://www.youtube.com/watch?v=ulZQTrV8QlQ&list=RDulZQTrV8QlQ&start_radio=1";
+    "https://www.youtube.com/url_here";
   const outputPath = "./downloads/";
 
   try {
