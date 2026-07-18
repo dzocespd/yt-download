@@ -25,10 +25,10 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@distube/ytdl-core": "^4.16.12",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@types/node": "^18.11.2",
-    "fluent-ffmpeg": "^2.1.2"
+    "fluent-ffmpeg": "^2.1.2",
+    "youtubei.js": "^17.2.0"
   },
   "devDependencies": {
     "@types/fluent-ffmpeg": "^2.1.20",

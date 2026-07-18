@@ -1,46 +1,63 @@
 # YouTube Downloader v2.0
 
-## A powerful Node.js library to download YouTube videos and convert them to various formats
+## A Node.js library to download YouTube videos and convert them to various formats
 
-### 🚀 What's New in v2.0
+Powered by [`youtubei.js`](https://github.com/LuanRT/YouTube.js) and FFmpeg.
 
-- **📹 Video Downloads**: Download YouTube videos in 6 formats: MP4, FLV, AVI, MOV, MKV, 3GP
-- **🎵 Multiple Audio Formats**: Support for 5 audio formats: MP3, WAV, AAC, FLAC, OGG
-- **🎯 Enhanced Quality Control**: Smart quality validation and better selection options
-- **📁 Auto Directory Creation**: Automatically creates output directories if they don't exist
+### What's New in v2.0
 
-### 📦 Installation
+- **Video downloads**: MP4, FLV, AVI, MOV, MKV, 3GP
+- **Audio conversion**: MP3, WAV, AAC, FLAC, OGG
+- **Quality validation**: Smart checks for audio vs video quality options
+- **Auto directory creation**: Creates the output folder if it does not exist
+- **Reliable fetching**: Uses `youtubei.js` instead of the archived `@distube/ytdl-core`
+
+### Installation
 
 ```bash
 npm install @derimalec/ytdl-to-mp3
 ```
 
-### 🎯 Quick Start
+### Quick Start
 
 ```typescript
 import { ytDownloader } from "@derimalec/ytdl-to-mp3";
 
-// Download video as MP4 (most compatible)
-const videoResult = await ytDownloader.download("https://www.youtube.com/watch?v=VIDEO_ID", "./downloads/", {
-  outputFormat: "video",
-  videoFormat: "mp4",
-  quality: "highest"
-});
+// Download video as MP4
+const videoResult = await ytDownloader.download(
+  "https://www.youtube.com/watch?v=VIDEO_ID",
+  "./downloads/",
+  {
+    outputFormat: "video",
+    videoFormat: "mp4",
+    quality: "highest",
+  }
+);
 
-// Convert to high-quality MP3 audio
-const audioResult = await ytDownloader.download("https://www.youtube.com/watch?v=VIDEO_ID", "./downloads/", {
-  outputFormat: "audio",
-  audioFormat: "mp3",
-  audioBitrate: 320
-});
+// Convert to MP3
+const audioResult = await ytDownloader.download(
+  "https://www.youtube.com/watch?v=VIDEO_ID",
+  "./downloads/",
+  {
+    outputFormat: "audio",
+    audioFormat: "mp3",
+    audioBitrate: 320,
+  }
+);
 ```
 
-### 📚 API Reference
+### API Reference
 
 #### Main Download Method
 
 ```typescript
 download(url: string, outputPath: string, options: DownloadOptions): Promise<{ path: string }>
+```
+
+#### Convenience Audio Method
+
+```typescript
+downloadAudio(url: string, outputPath: string, quality?: Quality): Promise<{ path: string }>
 ```
 
 #### DownloadOptions
@@ -55,9 +72,9 @@ interface DownloadOptions {
 }
 ```
 
-### 📊 Supported Formats
+### Supported Formats
 
-#### 🎥 Video Formats
+#### Video Formats
 
 | Format | Video Codec | Audio Codec | Best For | File Size |
 |--------|-------------|-------------|----------|-----------|
@@ -68,7 +85,7 @@ interface DownloadOptions {
 | **MKV** | H.264 | AAC | High quality, open source | Large |
 | **3GP** | H.264 | AAC | Mobile devices, low bandwidth | Very Small |
 
-#### 🎵 Audio Formats
+#### Audio Formats
 
 | Format | Codec | Quality | Compression | Best For |
 |--------|-------|---------|-------------|----------|
@@ -78,93 +95,76 @@ interface DownloadOptions {
 | **FLAC** | Free Lossless | Lossless | ~50% | Audiophile quality |
 | **OGG** | Vorbis | Lossy | Excellent | Open source projects |
 
-### 🎥 Video Download Examples
+### Video Download Examples
 
 ```typescript
 import { ytDownloader } from "@derimalec/ytdl-to-mp3";
 
-// High quality MP4 download (recommended)
-const mp4Result = await ytDownloader.download("https://www.youtube.com/watch?v=VIDEO_ID", "./downloads/", {
+const mp4Result = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "video",
   videoFormat: "mp4",
-  quality: "highest"
+  quality: "highest",
 });
 
-// AVI for universal compatibility
-const aviResult = await ytDownloader.download("https://www.youtube.com/watch?v=VIDEO_ID", "./downloads/", {
+const aviResult = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "video",
   videoFormat: "avi",
-  quality: "highest"
+  quality: "highest",
 });
 
-// MOV for Apple devices
-const movResult = await ytDownloader.download("https://www.youtube.com/watch?v=VIDEO_ID", "./downloads/", {
+const movResult = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "video",
   videoFormat: "mov",
-  quality: "highest"
+  quality: "highest",
 });
 
-// 3GP for mobile/low bandwidth
-const gp3Result = await ytDownloader.download("https://www.youtube.com/watch?v=VIDEO_ID", "./downloads/", {
+const gp3Result = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "video",
   videoFormat: "3gp",
-  quality: "lowest"
+  quality: "lowest",
 });
 ```
 
-### 🎵 Audio Conversion Examples
+### Audio Conversion Examples
 
 ```typescript
-// High quality MP3 conversion (most popular)
 const mp3Result = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "audio",
   audioFormat: "mp3",
   audioBitrate: 320,
-  quality: "highestaudio"
+  quality: "highestaudio",
 });
 
-// FLAC for audiophile quality (lossless)
 const flacResult = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "audio",
   audioFormat: "flac",
-  audioBitrate: 320
+  audioBitrate: 320,
 });
 
-// WAV for professional use (uncompressed)
 const wavResult = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "audio",
   audioFormat: "wav",
-  audioBitrate: 192
+  audioBitrate: 192,
 });
 
-// AAC for modern devices
 const aacResult = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "audio",
   audioFormat: "aac",
-  audioBitrate: 256
+  audioBitrate: 256,
 });
 
-// OGG for open source projects
 const oggResult = await ytDownloader.download(url, "./downloads/", {
   outputFormat: "audio",
   audioFormat: "ogg",
-  audioBitrate: 256
+  audioBitrate: 256,
 });
 ```
 
-### 🔄 Backward Compatibility
+### Backward Compatibility
 
-Your existing v1.x code will continue to work:
+The dedicated audio helper from v1.x still works:
 
 ```typescript
-// This still works from v1.x
-const { path } = await ytDownloader.download(
-  "https://www.youtube.com/watch?v=VIDEO_ID",
-  "./downloads/",
-  "highestaudio"
-);
-
-// Or use the dedicated method
 const result = await ytDownloader.downloadAudio(
   "https://www.youtube.com/watch?v=VIDEO_ID",
   "./downloads/",
@@ -172,25 +172,21 @@ const result = await ytDownloader.downloadAudio(
 );
 ```
 
-### 🎯 Quality Validation
-
-v2.0 includes smart quality validation:
+### Quality Validation
 
 ```typescript
-// ✅ Valid combinations
-{ outputFormat: "audio", quality: "highestaudio" }   // Works
-{ outputFormat: "audio", quality: "lowestaudio" }    // Works
-{ outputFormat: "video", quality: "highest" }        // Works
-{ outputFormat: "video", quality: "highestvideo" }   // Works
+// Valid combinations
+{ outputFormat: "audio", quality: "highestaudio" }
+{ outputFormat: "audio", quality: "lowestaudio" }
+{ outputFormat: "video", quality: "highest" }
+{ outputFormat: "video", quality: "highestvideo" }
 
-// ❌ Invalid combinations (will throw errors)
-{ outputFormat: "audio", quality: "highestvideo" }   // Error!
-{ outputFormat: "video", quality: "highestaudio" }   // Error!
+// Invalid combinations (throw errors)
+{ outputFormat: "audio", quality: "highestvideo" }
+{ outputFormat: "video", quality: "highestaudio" }
 ```
 
-### 🛠 Custom Implementation
-
-You can also create your own downloader class:
+### Custom Implementation
 
 ```typescript
 import { Downloader } from "@derimalec/ytdl-to-mp3";
@@ -202,43 +198,52 @@ class MyCustomDownloader extends Downloader {
 const customDownloader = new MyCustomDownloader();
 ```
 
-### ⚙️ Requirements
+### How It Works
 
-- Node.js 14+ 
-- FFmpeg (automatically installed via @ffmpeg-installer/ffmpeg)
+1. Fetches stream data with **youtubei.js** (InnerTube API)
+2. Downloads a muxed progressive stream (video + audio)
+3. Pipes it through **FFmpeg** to convert to the requested format
 
-### 📁 File Output
+Audio exports strip the video track; video exports re-encode to the chosen container.
 
-- 📁 **Auto-creates** output directories if they don't exist
-- 🏷️ **Auto-names** files using the YouTube video title
-- 🧹 **Sanitizes** filenames to remove unsafe characters (`<>:"/\|?*`)
-- 📎 **Auto-adds** appropriate file extensions
-- 💾 **Saves** to: `{outputPath}/{sanitized_title}.{extension}`
+### Limitations
 
-### 📊 Progress Tracking
+YouTube currently restricts most adaptive (separate high-resolution video / high-bitrate audio) URLs without extra attestation tokens. This library therefore uses available **muxed progressive** streams (typically around **360p** for video). Output audio bitrate is still controlled by `audioBitrate` during FFmpeg conversion.
 
-v2.0 includes real-time progress tracking:
+### Requirements
+
+- Node.js **16.8+** (needed by `youtubei.js` / undici `fetch`)
+- FFmpeg (bundled automatically via `@ffmpeg-installer/ffmpeg`)
+
+### File Output
+
+- Auto-creates output directories if they do not exist
+- Names files from the YouTube video title
+- Sanitizes unsafe filename characters (`<>:"/\|?*`)
+- Adds the correct file extension
+- Saves to: `{outputPath}/{sanitized_title}.{extension}`
+
+### Console Output
 
 ```
 🎥 Starting video download: Song_Title.mp4
-📥 Downloading: 45% | Time: 00:01:23
 ✅ Video download completed: downloads/Song_Title.mp4
+
+🎵 Starting audio conversion: Song_Title.mp3
+✅ Audio conversion completed: downloads/Song_Title.mp3
 ```
 
-### 🚀 Performance Tips
+### Performance Tips
 
-- **MP4** - Best balance of quality, compatibility, and speed
-- **3GP** - Fastest downloads, smallest files for mobile
-- **FLAC** - Best audio quality but larger files
-- **MP3 320kbps** - Best audio quality/size balance
+- **MP4** — best balance of quality, compatibility, and speed
+- **3GP** — smallest files for mobile / low bandwidth
+- **FLAC** — best audio fidelity, larger files
+- **MP3 320kbps** — best everyday audio quality/size balance
 
-### 📝 License
+### License
 
 ISC
 
-### 🤝 Contributing
+### Contributing
 
-Feel free to submit issues and pull requests on GitHub!
-
----
-
+Feel free to submit issues and pull requests on GitHub.
